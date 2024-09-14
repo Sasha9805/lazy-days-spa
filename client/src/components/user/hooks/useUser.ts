@@ -44,8 +44,14 @@ export function useUser() {
 
 	// meant to be called from useAuthActions
 	function clearUser() {
+		// remove user profile data
 		queryClient.removeQueries({
 			queryKey: [queryKeys.user],
+		});
+
+		// remove user appointments data
+		queryClient.removeQueries({
+			queryKey: [queryKeys.appointments, queryKeys.user],
 		});
 	}
 
