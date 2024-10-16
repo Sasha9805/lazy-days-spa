@@ -20,7 +20,7 @@ export function useStaff() {
 
 	const selectFn = useCallback(
 		(unfilteredStaff: Staff[]) => {
-			if (filter === "all") unfilteredStaff;
+			if (filter === "all") return unfilteredStaff;
 			return filterByTreatment(unfilteredStaff, filter);
 		},
 		[filter]
