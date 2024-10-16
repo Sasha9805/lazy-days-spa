@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render as RtlRender } from "@testing-library/react";
 import { PropsWithChildren, ReactElement } from "react";
 import { MemoryRouter } from "react-router-dom";
@@ -12,13 +13,21 @@ import { MemoryRouter } from "react-router-dom";
 //   );
 // };
 
+// make a function to generate a unique query client for each test
+const generateQueryClient = () => {
+	return new QueryClient();
+};
+
 // reference: https://testing-library.com/docs/react-testing-library/setup#custom-render
-function customRender(ui: ReactElement) {
-  return RtlRender(
-    <ChakraProvider>
-      <MemoryRouter>{ui}</MemoryRouter>
-    </ChakraProvider>
-  );
+function customRender(ui: ReactElement, client?: QueryClient) {
+	const queryClient = client ?? generateQueryClient();
+	return RtlRender(
+		<ChakraProvider>
+			<QueryClientProvider client={queryClient}>
+				<MemoryRouter>{ui}</MemoryRouter>
+			</QueryClientProvider>
+		</ChakraProvider>
+	);
 }
 
 // re-export everything
