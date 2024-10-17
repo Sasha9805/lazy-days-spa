@@ -16,11 +16,11 @@ expect.extend(matchers);
 
 // mock useLoginData to mimic a logged-in user
 vi.mock("./auth/AuthContext", () => ({
-  __esModule: true,
-  // for the hook return value
-  useLoginData: () => ({ userId: 1 }),
-  // for the provider default export
-  default: ({ children }) => children,
+	__esModule: true,
+	// for the hook return value
+	useLoginData: () => ({ userId: 1 }),
+	// for the provider default export
+	AuthContextProvider: ({ children }) => children,
 }));
 
 // msw setup and teardown below
